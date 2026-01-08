@@ -5,14 +5,21 @@ import os
 
 load_dotenv()
 BASE_URL=os.getenv("BASE_URL")
+pdf_path="temp_files/sample.pdf"
 
 def test_store_docs():
+    if not os.path.exists(pdf_path):
+        print("PDF file for testing not found.")
+        return
+    
     url=f"{BASE_URL}/upload-pdf"
-    payload={
-        "docs":"RAG combines retrieval with generation using vector databases."
-    }
 
-    response=requests.post(url,json=payload)
+    with open(pdf_path,"rb") as f:
+        files={
+            "file":("sample.pdf",f,"application/pdf")
+        }
+        response=requests.post(url,files=files)
+
     print("Stores document response:",response.status_code+" "+response.json())
 
 def test_search_query():
