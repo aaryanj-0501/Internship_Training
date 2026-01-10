@@ -1,0 +1,7 @@
+fastapi
+pydantic
+uvicorn
+qdrant-client
+requests
+pypdf
+langchain
